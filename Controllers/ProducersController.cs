@@ -4,17 +4,16 @@ using pet_project.Data;
 
 namespace pet_project.Controllers
 {
-    public class ActorsController : Controller
+    public class ProducersController : Controller
     {
         private readonly AppDbContext _context;
-        public ActorsController(AppDbContext context)
+        public ProducersController(AppDbContext context)
         {
             _context = context;
         }
-
         public async Task<IActionResult> Index()
         {
-            var allActors = await _context.Actors.ToListAsync();
+            var allProducers = await _context.Producers.ToListAsync();
             return View();
         }
     }
