@@ -13,7 +13,8 @@ namespace pet_project.Data.Services
         }
         public void Add(Actor actor)
         {
-            throw new NotImplementedException();
+            _context.Actors.Add(actor);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)

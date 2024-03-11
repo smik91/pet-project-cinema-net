@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using pet_project.Data;
 using pet_project.Data.Services;
+using pet_project.Models;
 
 namespace pet_project.Controllers
 {
@@ -17,6 +18,21 @@ namespace pet_project.Controllers
         {
             var allActors = await _service.GetAll();
             return View(allActors);
+        }
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("FullName, ProfilePictureURL, Bio")]Actor actor)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(actor);
+            }
+            _service.Add(actor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
