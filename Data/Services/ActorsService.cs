@@ -11,10 +11,10 @@ namespace pet_project.Data.Services
         {
             _context = context;
         }
-        public void Add(Actor actor)
+        public async Task AddAsync(Actor actor)
         {
-            _context.Actors.Add(actor);
-            _context.SaveChanges();
+            await _context.Actors.AddAsync(actor);
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(int id)

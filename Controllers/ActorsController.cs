@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using pet_project.Data;
 using pet_project.Data.Services;
 using pet_project.Models;
 
@@ -27,11 +25,11 @@ namespace pet_project.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("FullName, ProfilePictureURL, Bio")]Actor actor)
         {
-            if(!ModelState.IsValid)
-            {
-                return View(actor);
-            }
-            _service.Add(actor);
+            //if(!ModelState.IsValid)
+            //{
+            //    return View(actor);
+            //}
+            await _service.AddAsync(actor);
             return RedirectToAction(nameof(Index));
         }
     }
