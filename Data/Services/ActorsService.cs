@@ -17,23 +17,28 @@ namespace pet_project.Data.Services
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var actorDelete = await _context.Actors.FirstOrDefaultAsync(x => x.Id == id);
+            if (actorDelete != null)
+            {
+                _context.Actors.Remove(actorDelete);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public async Task<IEnumerable<Actor>> GetAll()
+        public async Task<IEnumerable<Actor>> GetAllAsync()
         {
             var result = await _context.Actors.ToListAsync();
             return result;
         }
 
-        public Actor GetById(int id)
+        public async Task<Actor> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Actor Update(int id, Actor newActor)
+        public async Task<Actor> UpdateAsync(int id, Actor newActor)
         {
             throw new NotImplementedException();
         }
