@@ -14,7 +14,7 @@ namespace pet_project.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allActors = await _service.GetAll();
+            var allActors = await _service.GetAllAsync();
             return View(allActors);
         }
         public IActionResult Create()
@@ -23,13 +23,20 @@ namespace pet_project.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("FullName, ProfilePictureURL, Bio")]Actor actor)
+        public async Task<IActionResult> Create([Bind("FullName, ProfilePictureURL, Bio")] Actor actor)
         {
-            //if(!ModelState.IsValid)
-            //{
-            //    return View(actor);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(actor);
+            }
             await _service.AddAsync(actor);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }
