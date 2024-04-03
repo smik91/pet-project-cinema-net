@@ -8,7 +8,7 @@ using pet_project.Data;
 
 #nullable disable
 
-namespace pet_project.Migrations
+namespace Afisha.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace pet_project.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("project_youtube.Models.Actor", b =>
+            modelBuilder.Entity("pet_project.Models.Actor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,8 @@ namespace pet_project.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ProfilePictureURL")
                         .IsRequired()
@@ -47,7 +48,7 @@ namespace pet_project.Migrations
                     b.ToTable("Actors");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Actor_Movie", b =>
+            modelBuilder.Entity("pet_project.Models.Actor_Movie", b =>
                 {
                     b.Property<int>("ActorId")
                         .HasColumnType("int");
@@ -62,7 +63,7 @@ namespace pet_project.Migrations
                     b.ToTable("Actors_Movies");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Cinema", b =>
+            modelBuilder.Entity("pet_project.Models.Cinema", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,7 +88,7 @@ namespace pet_project.Migrations
                     b.ToTable("Cinemas");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Movie", b =>
+            modelBuilder.Entity("pet_project.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,7 +135,7 @@ namespace pet_project.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Producer", b =>
+            modelBuilder.Entity("pet_project.Models.Producer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -159,15 +160,15 @@ namespace pet_project.Migrations
                     b.ToTable("Producers");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Actor_Movie", b =>
+            modelBuilder.Entity("pet_project.Models.Actor_Movie", b =>
                 {
-                    b.HasOne("project_youtube.Models.Actor", "Actor")
+                    b.HasOne("pet_project.Models.Actor", "Actor")
                         .WithMany("Actors_Movies")
                         .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("project_youtube.Models.Movie", "Movie")
+                    b.HasOne("pet_project.Models.Movie", "Movie")
                         .WithMany("Actors_Movies")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -178,15 +179,15 @@ namespace pet_project.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Movie", b =>
+            modelBuilder.Entity("pet_project.Models.Movie", b =>
                 {
-                    b.HasOne("project_youtube.Models.Cinema", "Cinema")
+                    b.HasOne("pet_project.Models.Cinema", "Cinema")
                         .WithMany("Movies")
                         .HasForeignKey("CinemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("project_youtube.Models.Producer", "Producer")
+                    b.HasOne("pet_project.Models.Producer", "Producer")
                         .WithMany("Movies")
                         .HasForeignKey("ProducerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -197,22 +198,22 @@ namespace pet_project.Migrations
                     b.Navigation("Producer");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Actor", b =>
+            modelBuilder.Entity("pet_project.Models.Actor", b =>
                 {
                     b.Navigation("Actors_Movies");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Cinema", b =>
+            modelBuilder.Entity("pet_project.Models.Cinema", b =>
                 {
                     b.Navigation("Movies");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Movie", b =>
+            modelBuilder.Entity("pet_project.Models.Movie", b =>
                 {
                     b.Navigation("Actors_Movies");
                 });
 
-            modelBuilder.Entity("project_youtube.Models.Producer", b =>
+            modelBuilder.Entity("pet_project.Models.Producer", b =>
                 {
                     b.Navigation("Movies");
                 });
