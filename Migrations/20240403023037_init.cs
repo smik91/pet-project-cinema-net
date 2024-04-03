@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace pet_project.Migrations
+namespace Afisha.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,15 +13,15 @@ namespace pet_project.Migrations
                 name: "Actors",
                 columns: table => new
                 {
-                    ActorId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProfilePictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Actors", x => x.ActorId);
+                    table.PrimaryKey("PK_Actors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,7 +43,7 @@ namespace pet_project.Migrations
                 name: "Producers",
                 columns: table => new
                 {
-                    ActorId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProfilePictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -51,7 +51,7 @@ namespace pet_project.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producers", x => x.ActorId);
+                    table.PrimaryKey("PK_Producers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +83,7 @@ namespace pet_project.Migrations
                         name: "FK_Movies_Producers_ProducerId",
                         column: x => x.ProducerId,
                         principalTable: "Producers",
-                        principalColumn: "ActorId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -101,7 +101,7 @@ namespace pet_project.Migrations
                         name: "FK_Actors_Movies_Actors_ActorId",
                         column: x => x.ActorId,
                         principalTable: "Actors",
-                        principalColumn: "ActorId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Actors_Movies_Movies_MovieId",

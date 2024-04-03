@@ -1,0 +1,51 @@
+﻿@model Actor
+
+@{
+    ViewData["Title"] = "Details of the actor";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Details for @Model.FullName</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <img class="rounded-circle" style="max-width: 150px; max-height: 150px;" id="ProfilePicturePreview" src="@Model.ProfilePictureURL" alt="Profile Picture" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="control-label">Full Name</label>
+                                <input class="form-control" value="@Model.FullName" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Bio</label>
+                                <div class="form-control" style="height: auto; min-height: 100px;">@Model.Bio</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Просто сделаем так, чтобы скрипт работал после загрузки изображения
+        $(document).ready(function () {
+            $('#ProfilePicturePreview').on('load', function () {
+                // Подгоняем размер изображения, если оно больше 150px
+                if ($(this).height() > 150 || $(this).width() > 150) {
+                    $(this).css('max-height', '150px');
+                    $(this).css('max-width', '150px');
+                }
+            });
+        });
+    </script>
+}
