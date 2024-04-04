@@ -11,6 +11,7 @@ namespace pet_project.Data.Services
         {
             _context = context;
         }
+
         public async Task AddAsync(Actor actor)
         {
             await _context.Actors.AddAsync(actor);
@@ -29,18 +30,26 @@ namespace pet_project.Data.Services
 
         public async Task<IEnumerable<Actor>> GetAllAsync()
         {
-            var result = await _context.Actors.ToListAsync();
+            var result = await _context.Actors.AsNoTracking().ToListAsync();
             return result;
         }
 
         public async Task<Actor> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var actor = await _context.Actors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            return actor;
         }
 
-        public async Task<Actor> UpdateAsync(int id, Actor newActor)
+        public async Task UpdateAsync(Actor newActor)
         {
-            throw new NotImplementedException();
+            var actorToUpdate = await _context.Actors.FirstOrDefaultAsync(x => x.Id == newActor.Id);
+            if (actorToUpdate != null)
+            {
+                actorToUpdate.ProfilePictureURL = newActor.ProfilePictureURL;
+				actorToUpdate.FullName = newActor.FullName;
+				actorToUpdate.Bio = newActor.Bio;
+                await _context.SaveChangesAsync();
+			}
         }
     }
 }

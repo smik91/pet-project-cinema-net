@@ -17,6 +17,7 @@ namespace pet_project.Controllers
             var allActors = await _service.GetAllAsync();
             return View(allActors);
         }
+
         public IActionResult Create()
         {
             return View();
@@ -37,6 +38,24 @@ namespace pet_project.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+		public async Task<IActionResult> Edit(int id)
+		{
+			var actor = await _service.GetByIdAsync(id);
+            return View(actor);
+		}
+
+		[HttpPatch]
+        public async Task<IActionResult> Edit(Actor actor)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Если модель не прошла валидацию, возвращаем представление с ошибками валидации
+                return RedirectToAction(nameof(Create));
+            }
+            await _service.UpdateAsync(actor);
             return RedirectToAction(nameof(Index));
         }
     }

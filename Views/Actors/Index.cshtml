@@ -30,7 +30,7 @@
 							@Html.DisplayFor(modelItem => item.Bio)
 						</td>
 						<td class="text-center">
-							<a class=" btn btn-outline-primary  text-black"><i class="bi bi-pencil-square"> Edit</i></a> |
+							<button class="btn btn-outline-primary text-black edit-actor" data-id="@item.Id"><i class="bi bi-pencil-square"> Edit</i></button> |
 							<a class =" btn btn-outline-info text-black "><i class ="bi bi-eye"> Details</i></a> |
 							<a class="btn btn-danger text-white delete-actor" data-id="@item.Id">
 								<i class="bi bi-trash"> Delete</i>
@@ -99,6 +99,14 @@
 			
 			$('#deleteActorModal').on('click', '.btn-secondary', function () {
 				$('#deleteActorModal').modal('hide');
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.edit-actor').click(function () {
+				var actorId = $(this).data('id');
+				window.location.href = '/Actors/Edit/' + actorId;
 			});
 		});
 	</script>
